@@ -18,8 +18,9 @@ public class Calle implements Composite{
     }
     
     public void mostrar(){
-        System.out.println("Coordenada de origen en x: "+oX+" Coordenada de origen en y: "+oY+" Coordenada de destino en x: "+dX+" Coordenada de destino en y: "+dY+
-                " nombre de calle: "+nombre+" distancia en metros: "+disM+" tiempo en minutos "+tiempo);
+        System.out.println("Coordenada de origen en x: "+this.getoX()+" Coordenada de origen en y: "+this.getoY()+" Coordenada de destino en x: "+this.getdX()
+                +" Coordenada de destino en y: "+this.getdY()+" nombre de calle: "+this.getNombre()+" distancia en metros: "+this.getDisM()
+                +" tiempo en minutos "+this.getTiempo());
     }
     
     public Calle(float oX,float oY,float dX,float dY,String nombre,float disM, float tiempo){
@@ -36,7 +37,7 @@ public class Calle implements Composite{
         return oX;
     }
 
-    public void setoX(float oX) {
+    private void setoX(float oX) {
         this.oX = oX;
     }
 
@@ -44,7 +45,7 @@ public class Calle implements Composite{
         return oY;
     }
 
-    public void setoY(float oY) {
+    private void setoY(float oY) {
         this.oY = oY;
     }
 
@@ -52,7 +53,7 @@ public class Calle implements Composite{
         return dX;
     }
 
-    public void setdX(float dX) {
+    private void setdX(float dX) {
         this.dX = dX;
     }
 
@@ -60,7 +61,7 @@ public class Calle implements Composite{
         return dY;
     }
 
-    public void setdY(float dY) {
+    private void setdY(float dY) {
         this.dY = dY;
     }
 
@@ -68,7 +69,7 @@ public class Calle implements Composite{
         return disM;
     }
 
-    public void setDisM(float disM) {
+    private void setDisM(float disM) {
         this.disM = disM;
     }
 
@@ -76,7 +77,7 @@ public class Calle implements Composite{
         return tiempo;
     }
 
-    public void setTiempo(float tiempo) {
+    private void setTiempo(float tiempo) {
         this.tiempo = tiempo;
     }
     
@@ -84,7 +85,7 @@ public class Calle implements Composite{
         return nombre;
     }
     
-    public void setNombre(String nombre){
+    private void setNombre(String nombre){
         this.nombre = nombre;
     }
 }

@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public class Ruta implements Composite {
     private String nombre;
-    
     private ArrayList <Composite> componentes;
     
     public Ruta(String nombre){
@@ -30,13 +29,13 @@ public class Ruta implements Composite {
         return nombre;
     }
     
-    public void setNombre(String nombre){
+    private void setNombre(String nombre){
         this.nombre = nombre;
     }
     
     public void mostrar(){
-        for(Composite c: componentes) c.mostrar();
-        System.out.println("se tomo la ruta "+nombre);
+        for(Composite c: this.getComponentes()) c.mostrar();
+        System.out.println("se tomo la ruta "+this.getNombre());
     }
     
     public void add(Composite e){
@@ -47,7 +46,7 @@ public class Ruta implements Composite {
         return componentes;
     }
     
-    public void setComponentes(ArrayList<Composite> componentes){
+    private void setComponentes(ArrayList<Composite> componentes){
         this.componentes = componentes;
     }
 }
