@@ -10,7 +10,7 @@ package taller.patron.adapter;
  * @author JUan Camilo Posada
  */
 public class Calle implements Composite{
-    private float oX,oY,dX,dY, disM,tiempo;
+    private float oX,oY,dX,dY, disM,velocidad, tiempo;
     private String nombre;
     
     public Calle() {
@@ -31,6 +31,22 @@ public class Calle implements Composite{
         setNombre(nombre);
         setDisM(disM);
         setTiempo(tiempo);
+    }
+
+    public float getVelocidad() {
+        return velocidad;
+    }
+
+    private void setVelocidad(float velocidad) {
+        this.velocidad = velocidad;
+    }
+
+    public float getTiempo() {
+        return tiempo;
+    }
+
+    private void setTiempo(float tiempo) {
+        this.tiempo = tiempo;
     }
 
     public float getoX() {
@@ -73,14 +89,6 @@ public class Calle implements Composite{
         this.disM = disM;
     }
 
-    public float getTiempo() {
-        return tiempo;
-    }
-
-    private void setTiempo(float tiempo) {
-        this.tiempo = tiempo;
-    }
-    
     public String getNombre(){
         return nombre;
     }

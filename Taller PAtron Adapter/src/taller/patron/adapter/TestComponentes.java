@@ -4,49 +4,14 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class TestComponentes {
-
-    ArrayList<Composite> calles;
-    ArrayList<Ruta> rutas;
-    private float oX, oY, dX, dY, disM, tiempo;
-    private String nombre;
+    private ArrayList<Ruta> rutas;
 
     public static void main(String[] args) {
         new TestComponentes();
-
-        /*Composite c1 = new Calle(74,50,30,69,"Autopista",20000,20);
-        Composite c2 = new Calle(74,50,45,19,"Septima",22000,30);
-        Composite c3 = new Calle(74,50,15,89,"Boyaca",25000,35);
-        Composite c4 = new Calle(74,50,45,100,"Variante cota",10000,25);
-        Composite c5 = new Calle(74,50,54,91,"Variante Cajica",7000,15);
-        Composite c6 = new Calle(74,50,20,44,"Zipaquira",17000,30);
-        
-        Ruta a = new Ruta("Mas corta");
-        Ruta b = new Ruta("Con menos trafico");
-        Ruta c = new Ruta("Con menos peajes");
-        
-        a.add(c1);
-        a.add(c2);
-        a.add(c3);
-        
-        b.add(a);
-        b.mostrar();
-        
-        c.add(c4);
-        a.add(c5);
-        a.add(c6);
-        b.mostrar();*/
     }
 
     public TestComponentes() {
-        this.calles = new ArrayList();
-        this.rutas = new ArrayList();
-        this.oX = 0;
-        this.oY = 0;
-        this.dX = 0;
-        this.dY = 0;
-        this.disM = 0;
-        this.tiempo = 0;
-        this.nombre = "";
+        rutas = new ArrayList();
         this.menu();
     }
 
@@ -54,9 +19,8 @@ public class TestComponentes {
         char opcion;
         do {
             String entrada = JOptionPane.showInputDialog("=======Bienvenido=========\n"
-                    + "1. Crear nueva calle \n "
-                    + "2. Crear nueva ruta \n "
-                    + "3. Agregar calle a una ruta \n"
+                    + "1. Guardar nueva ruta \n "
+                    + "2. Ver rutas \n "
                     + "0. Salir");
             opcion = entrada.charAt(0);
             switch (opcion) {
@@ -65,84 +29,66 @@ public class TestComponentes {
                     System.exit(0);
                     break;
                 case '1':
-                    this.newCalle();
-                    break;
-                case '2':
                     this.newRuta();
                     break;
+                case '2':
+                    this.verRutas();
+                    break;
                 case '3':
-                    this.calleEnRuta();
                     break;
             }
         } while (opcion != '0');
     }
 
-    private void newCalle() {
-        this.oX = Float.parseFloat(JOptionPane.showInputDialog("Ingrese la coordenada de origen en X:"));
-        this.oY = Float.parseFloat(JOptionPane.showInputDialog("Ingrese la coordenada de origen en Y:"));
-        this.dX = Float.parseFloat(JOptionPane.showInputDialog("Ingrese la coordenada de destino en X:"));
-        this.dY = Float.parseFloat(JOptionPane.showInputDialog("Ingrese la coordenada de destino en Y:"));
-        this.nombre = JOptionPane.showInputDialog("Ingrese el nombre de la calle:");
-        this.disM = (float) Math.sqrt((float) Math.pow((dX - oX), 2) + (float) Math.pow((dY - oY), 2));
-        this.tiempo = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el tiempo promedio:"));
+    private void newCalle(Ruta ruta) {
+        float oX = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el punto de origen en X:"));
+        float oY = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el punto de origen en Y:"));
+        float dX = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el punto de destino en X:"));
+        float dY = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el punto de destino en Y:"));
+        String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la calle:");
+        float disM = (float) Math.sqrt((float) Math.pow((dX - oX), 2) + (float) Math.pow((dY - oY), 2));
+        float velocidad = Float.parseFloat(JOptionPane.showInputDialog("Ingrese la velocidad promedio:"));
+        velocidad = (velocidad*1000)/3600;
+        float tiempo = (disM/velocidad)/60;
 
         Composite calle = new Calle(oX, oY, dX, dY, nombre, disM, tiempo);
-        calles.add(calle);
+        ruta.add(calle);
     }
 
     private void newRuta() {
+        String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la ruta:");
+        float valor = Float.parseFloat(JOptionPane.showInputDialog("Ingrese el valor de la ruta:"));
+        int cupos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los cupos de su vehiculo:"));
+        String fecha = JOptionPane.showInputDialog("Ingrese la fecha de la ruta:");
+        String hora = JOptionPane.showInputDialog("Ingrese la hora de la ruta:");
+        String destino = JOptionPane.showInputDialog("Ingrese el nombre del destino:");
+        Ruta ruta = new Ruta(nombre, valor, cupos, fecha, hora, destino);
+        
         char opcion;
-        Ruta ruta;
         do {
-            String entrada = JOptionPane.showInputDialog("=======Seleccione el tipo de ruta a agregar=========\n"
-                    + "1. Ruta mas corta \n "
-                    + "2. Ruta con menos trafico \n "
-                    + "3. Ruta con menos peajes \n"
-                    + "0. Regresar");
+            String entrada = JOptionPane.showInputDialog("=======Desea agregar una calle?=========\n"
+                    + "1. Si \n "
+                    + "2. No ");
             opcion = entrada.charAt(0);
             switch (opcion) {
-                case '0':
-                    this.menu();
-                    break;
                 case '1':
-                    ruta = new Ruta("Mas corta");
-                    rutas.add(ruta);
+                    this.newCalle(ruta);
                     break;
                 case '2':
-                    ruta = new Ruta("Con menos trafico");
-                    rutas.add(ruta);
-                    break;
-                case '3':
-                    ruta = new Ruta("Con menos peajes");
-                    rutas.add(ruta);
+                    ruta.mostrar();
+                    this.rutas.add(ruta);
+                    this.menu();
                     break;
             }
         } while (opcion != '0');
     }
-
-    private void calleEnRuta() {
-        char opcion;
-        do {
-            String entrada = JOptionPane.showInputDialog("=======Agregar una Calle a una Ruta=========\n"
-                    + "1. Crear nueva calle \n "
-                    + "2. Crear nueva ruta \n "
-                    + "3. Agregar calle a una ruta \n"
-                    + "0. Regresar");
-            opcion = entrada.charAt(0);
-            switch (opcion) {
-                case '0':
-                    this.menu();
-                    break;
-                case '1':
-                    this.newCalle();
-                    break;
-                case '2':
-                    this.newRuta();
-                    break;
-                case '3':
-                    this.calleEnRuta();
-                    break;
-            }
-        } while (opcion != '0');
+    
+    private void verRutas(){
+        Ruta rut;
+        for(int i=0;i<rutas.size();i++){
+            rut = rutas.get(i);
+            rut.mostrar();
+        }
     }
+    
 }
